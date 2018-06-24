@@ -1,11 +1,11 @@
 <template lang="pug">
   section#navbar
     nav
-      router-link(:to="{ name: 'Dashboard' }") Employee Manager
-      router-link(:to="{ name: 'NewEmployee' }") +
-      router-link(:to="{ name: 'Login' }") Login
-      router-link(:to="{ name: 'Register' }") Register
-      div(@click="logout") Logout
+      router-link(v-if="isLoggedIn" :to="{ name: 'Dashboard' }") Employee Manager
+      router-link(v-if="isLoggedIn" :to="{ name: 'NewEmployee' }") +
+      router-link(v-if="!isLoggedIn" :to="{ name: 'Login' }") Login
+      router-link(v-if="!isLoggedIn" :to="{ name: 'Register' }") Register
+      div(v-if="isLoggedIn" @click="logout") Logout
 </template>
 
 <script>
@@ -26,7 +26,16 @@ export default {
         this.$router.push({ name: 'Login' })
       })
       .catch(error => console.log(error))
+    },
+    checkIfLogged() {
+      if (firebase.auth().currentUser) {
+        this.isLoggedIn = true,
+        this.currentUser = firebase.auth().currentUser.email
+      }
     }
+  },
+  created() {
+    this.checkIfLogged()
   }
 }
 </script>
