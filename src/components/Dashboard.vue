@@ -20,21 +20,26 @@ export default {
       employees: []
     }
   },
-  created() {
-    db.collection('employees').orderBy('employee_id').get()
-    .then(snapshot => {
-      snapshot.forEach(doc => {
-        const employee = {
-          'id': doc.id,
-          'employee_id': doc.data().employee_id,
-          'name': doc.data().name,
-          'dept': doc.data().dept,
-          'position': doc.data().position
-        }
-        this.employees.push(employee)
+  methods: {
+    fetchEmployees() {
+      db.collection('employees').orderBy('employee_id').get()
+      .then(snapshot => {
+        snapshot.forEach(doc => {
+          const employee = {
+            'id': doc.id,
+            'employee_id': doc.data().employee_id,
+            'name': doc.data().name,
+            'dept': doc.data().dept,
+            'position': doc.data().position
+          }
+          this.employees.push(employee)
+        })
       })
-    })
-    .catch(error => console.log(errors))
+      .catch(error => console.log(errors))
+    }
+  },
+  created() {
+    this.fetchEmployees()
   }
 }
 </script>
