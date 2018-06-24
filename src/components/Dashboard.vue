@@ -35,7 +35,7 @@ export default {
           this.employees.push(employee)
         })
       })
-      .catch(error => console.log(errors))
+      .catch(error => console.log(error))
     }
   },
   created() {

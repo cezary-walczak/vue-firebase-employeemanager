@@ -7,9 +7,10 @@
         div name: {{employee.name}}
         div dept: {{employee.dept}}
         div position: {{employee.position}}
+        br
         router-link(:to="{ name: 'Dashboard' }") back
-    br
-    input(@click="deleteEmployee" type="button" value="delete")
+        div(@click="deleteEmployee") delete
+        router-link(:to="{ name: 'EditEmployee', params: { employee_id: employee.employee_id } }") edit
 </template>
 
 <script>
@@ -37,7 +38,7 @@ export default {
           this.employees.push(employee)
         })
       })
-      .catch(error => console.log(errors))
+      .catch(error => console.log(error))
     },
 
     deleteEmployee() {

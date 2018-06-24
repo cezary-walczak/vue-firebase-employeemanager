@@ -16,7 +16,7 @@ export default new Router({
       component: Dashboard
     },
     {
-      path: '/:employee_id',
+      path: '/view/:employee_id',
       name: 'ViewEmployee',
       component: ViewEmployee
     },
